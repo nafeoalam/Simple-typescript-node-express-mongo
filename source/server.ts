@@ -54,17 +54,9 @@ router.use((req, res, next) => {
     });
 });
 
-//Mongo
-const mongoUserName = process.env.MONGO_UserName || 'nafeojoy';
-const mongoPassword = process.env.MONGO_Password || '1234';
-const mongoDbName = process.env.MONGO_DbName || 'tuliptech';
-const CONNECTION_URL = `mongodb+srv://${mongoUserName}:${mongoPassword}@cluster0.lq4xh.gcp.mongodb.net/${mongoDbName}?retryWrites=true&w=majority`; //Mongo Connection
-
-const PORT = process.env.PORT || 5000;
-
 mongoose
-    .connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => router.listen(PORT, () => console.log(`Server Running on Port: http://localhost:${PORT}`)))
+    .connect(config.db.connectionUrl, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => router.listen(config.server.port, () => console.log(`Server Running on Port: http://localhost:${config.server.port}`)))
     .catch((error) => console.log(`${error} did not connect`));
 
 mongoose.set('useNewUrlParser', true);
