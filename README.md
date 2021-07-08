@@ -4,3 +4,5 @@
 
 
 Backend will start on 5000 
+
+(use .env file to run the project)
