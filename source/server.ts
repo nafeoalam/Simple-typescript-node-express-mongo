@@ -5,7 +5,7 @@ import express, { Request, Response, NextFunction } from 'express';
 import logging from './config/logging';
 import config from './config/config';
 import mongoose from 'mongoose';
-// import cors from 'cors';
+import cors from 'cors';
 
 const NAMESPACE: string = 'Server';
 const router = express();
@@ -26,6 +26,9 @@ router.use((req: Request, res: Response, next: NextFunction) => {
 /** Parse the body of the request */
 router.use(express.urlencoded({ extended: true }));
 router.use(express.json());
+
+//Use CORS
+router.use(cors())
 
 /** Rules of our API */
 router.use((req, res, next) => {

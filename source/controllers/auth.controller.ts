@@ -1,10 +1,12 @@
+import dotenv from 'dotenv';
+dotenv.config();
 import Customer from '../models/authModels/customer.model';
 
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+import jwt, { Secret } from 'jsonwebtoken';
 import { Request, Response } from 'express';
 
-const JWT_SECRET = 'xyz';
+const JWT_SECRET: Secret = process.env.JWT_SECRET || 'JWT_SECRET';
 
 export const registerCustomer = async (req: Request, res: Response) => {
     const { email, password } = req.body;
@@ -47,7 +49,7 @@ export const loginCustomer = async (req: Request, res: Response) => {
             return res.status(422).json({ error: 'Email not found' });
         }
         const matchPassword = await bcrypt.compare(password, savedCustomer.password);
-
+        console.log('loginCustomer')
         if (matchPassword) {
             const token = jwt.sign({ _id: savedCustomer._id }, JWT_SECRET);
             const { _id, id, email } = savedCustomer;
