@@ -41,7 +41,6 @@ customerSchema.methods.comparePasswords = function (candidatePassword: string, n
 
 interface ICustomer extends Document {
     email: string;
-    name: string;
     password: string;
     comparePasswords(candidatePassword: string, next: (err: Error | null, same: boolean | null) => void): void;
 }
